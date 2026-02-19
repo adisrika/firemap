@@ -1,0 +1,22 @@
+[
+  {
+    "value": "25x",
+    "label": "Your FIRE Number",
+    "description": "Annual expenses × 25 = your financial independence target"
+  },
+  {
+    "value": "4%",
+    "label": "Safe Withdrawal Rate",
+    "description": "The withdrawal rate backed by 50+ years of research"
+  },
+  {
+    "value": "$1M+",
+    "label": "Avg FIRE Portfolio",
+    "description": "The median portfolio size for those achieving FIRE"
+  },
+  {
+    "value": "15-20",
+    "label": "Years to FIRE",
+    "description": "Typical timeline for dedicated FIRE seekers with a 50%+ savings rate"
+  }
+]

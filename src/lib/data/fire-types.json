@@ -1,0 +1,122 @@
+[
+  {
+    "id": "lean",
+    "name": "Lean FIRE",
+    "tagline": "Freedom through frugality",
+    "description": "Lean FIRE means achieving financial independence on a minimal budget — typically under $40,000 per year. Lean FIREs prioritize freedom over luxury, often living in low cost-of-living areas, embracing minimalism, and optimizing every dollar. The lower FIRE number makes it achievable much faster.",
+    "annualExpenses": { "min": null, "max": 40000 },
+    "pros": [
+      "Smallest FIRE number — easiest to achieve",
+      "Maximum freedom from the 9-5 grind",
+      "Forces creative, intentional living",
+      "Less vulnerable to market downturns",
+      "Can be achieved in 10-15 years on average income"
+    ],
+    "cons": [
+      "Little buffer for unexpected expenses",
+      "May need to return to work in market downturns",
+      "Healthcare costs can strain a lean budget",
+      "Lifestyle sacrifices may feel restrictive",
+      "Dependents significantly complicate lean budgets"
+    ],
+    "bestFor": "Single individuals, minimalists, digital nomads, those willing to geo-arbitrage or live in low cost-of-living areas",
+    "color": "#22c55e",
+    "emoji": "🌱"
+  },
+  {
+    "id": "barista",
+    "name": "Barista FIRE",
+    "tagline": "Part-time work, full-time freedom",
+    "description": "Barista FIRE (named after Starbucks barista health benefits) means building a portfolio large enough to cover most expenses, then supplementing with enjoyable part-time or flexible work. You're not fully retired — but you've escaped the full-time grind and work on your terms.",
+    "annualExpenses": { "min": 40000, "max": 60000 },
+    "pros": [
+      "Smaller portfolio needed than full FIRE",
+      "Maintain social engagement and purpose",
+      "Employer benefits (especially healthcare)",
+      "Buffer against sequence-of-returns risk",
+      "Psychological ease of transition from work"
+    ],
+    "cons": [
+      "Still technically working",
+      "Part-time income may not always be available",
+      "Healthcare may still be inadequate",
+      "Requires finding enjoyable part-time work",
+      "May feel like 'not really retired'"
+    ],
+    "bestFor": "People who want to leave stressful careers but still enjoy some work, those who need healthcare coverage, early FIREs who want a buffer",
+    "color": "#f59e0b",
+    "emoji": "☕"
+  },
+  {
+    "id": "regular",
+    "name": "Regular FIRE",
+    "tagline": "The classic path to financial independence",
+    "description": "Traditional FIRE — full financial independence on $60,000-$100,000 per year. You accumulate enough to never need to work again, living comfortably on 4% annual withdrawals. This is what most people mean when they say FIRE.",
+    "annualExpenses": { "min": 60000, "max": 100000 },
+    "pros": [
+      "Comfortable lifestyle without work",
+      "Full flexibility over time",
+      "Healthcare funded from portfolio",
+      "Buffer for dependents and emergencies",
+      "Well-studied withdrawal strategies available"
+    ],
+    "cons": [
+      "Requires a substantial portfolio ($1.5M-$2.5M)",
+      "Takes longer to achieve than Lean FIRE",
+      "Requires sustained high savings rate",
+      "Market volatility affects lifestyle",
+      "Tax planning becomes complex"
+    ],
+    "bestFor": "Couples, families, those in high cost-of-living areas, people who want a comfortable retirement without extreme frugality",
+    "color": "#3b82f6",
+    "emoji": "🔥"
+  },
+  {
+    "id": "fat",
+    "name": "Fat FIRE",
+    "tagline": "Retire abundantly, never compromise",
+    "description": "Fat FIRE means retiring on $100,000+ per year — living lavishly while never working again. Fat FIREs build portfolios of $2.5M-$10M+ and enjoy travel, dining, luxury experiences, and financial security. It requires high income and high savings rates, but offers the most comfortable retirement.",
+    "annualExpenses": { "min": 100000, "max": null },
+    "pros": [
+      "Maximum lifestyle flexibility and comfort",
+      "Large buffer for healthcare, dependents, luxury",
+      "Resilient to market downturns",
+      "Ability to gift, give, and leave legacy",
+      "Complete freedom without any lifestyle constraints"
+    ],
+    "cons": [
+      "Requires a very large portfolio ($2.5M+)",
+      "Typically requires high income to achieve",
+      "May take 20-30 years even with high savings rate",
+      "Risk of lifestyle inflation pre-retirement",
+      "Identity challenges if career was central to life"
+    ],
+    "bestFor": "High earners, those with dependents, people with expensive hobbies or health conditions, those who want maximum security and comfort",
+    "color": "#f97316",
+    "emoji": "💰"
+  },
+  {
+    "id": "coast",
+    "name": "Coast FIRE",
+    "tagline": "Save aggressively now, coast to retirement",
+    "description": "Coast FIRE means saving enough early in your career that — without any further contributions — your investments will grow to your FIRE number by traditional retirement age. Once you've hit your Coast number, you only need to earn enough to cover current expenses.",
+    "annualExpenses": { "min": null, "max": null },
+    "pros": [
+      "Removes retirement saving pressure early",
+      "Can downshift to lower-paying but fulfilling work",
+      "Compound growth does the heavy lifting",
+      "Intermediate goal makes FIRE more achievable",
+      "Reduces financial stress while still working"
+    ],
+    "cons": [
+      "Still working until traditional retirement age",
+      "Requires discipline to not touch investments",
+      "Inflation risk over long coast period",
+      "Healthcare still needs to be funded",
+      "May feel like a compromise vs. full early retirement"
+    ],
+    "bestFor": "People who want to reduce financial stress without fully stopping work, career changers, parents, those who started saving early and want to pivot",
+    "color": "#06b6d4",
+    "emoji": "🏄"
+  }
+]
