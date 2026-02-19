@@ -98,10 +98,10 @@ export default function PrivacyPage() {
               <p className="text-gray-600 leading-relaxed">
                 Questions or concerns about this Privacy Policy? Email us at{' '}
                 <a
-                  href="mailto:privacy@firemap.app"
+                  href="mailto:privacy@myfiremap.com"
                   className="text-fire-500 hover:underline"
                 >
-                  privacy@firemap.app
+                  privacy@myfiremap.com
                 </a>
                 .
               </p>
