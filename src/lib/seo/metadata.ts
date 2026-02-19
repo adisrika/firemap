@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://firemap.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://myfiremap.com';
 const siteName = 'FIREmap';
 const siteDescription =
   'Calculate your FIRE number, learn about financial independence strategies, and find curated resources to retire early. Free FIRE calculator with personalized projections.';
