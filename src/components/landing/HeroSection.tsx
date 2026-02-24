@@ -15,7 +15,7 @@ export function HeroSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-ember/5 blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 pt-40">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24 sm:py-16 sm:pt-28 lg:py-24 lg:pt-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: copy */}
           <div>
@@ -73,8 +73,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right: interactive calculator */}
-          <div className="hidden lg:block">
+          {/* Right: interactive calculator — visible on all screen sizes */}
+          <div>
             <QuickCalculatorCard />
           </div>
         </div>
