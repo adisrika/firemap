@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
+import { useNumberInput } from '@/hooks/useNumberInput';
 import type { CalculatorInputs } from '@/types/calculator';
 
 interface FireCalculatorFormProps {
@@ -52,29 +52,7 @@ function NumberInput({
   prefix?: string;
   suffix?: string;
 }) {
-  const [displayValue, setDisplayValue] = useState(String(value));
-
-  // Sync display when parent value changes (e.g. slider moves)
-  useEffect(() => {
-    setDisplayValue(String(value));
-  }, [value]);
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setDisplayValue(e.target.value);
-    const num = Number(e.target.value);
-    if (e.target.value !== '' && !isNaN(num)) {
-      onChange(Math.min(max, Math.max(min, num)));
-    }
-  }
-
-  function handleBlur() {
-    const num = Number(displayValue);
-    const clamped = displayValue === '' || isNaN(num)
-      ? min
-      : Math.min(max, Math.max(min, num));
-    onChange(clamped);
-    setDisplayValue(String(clamped));
-  }
+  const { displayValue, handleFocus, handleChange, handleBlur } = useNumberInput(value, min, max, onChange);
 
   return (
     <div className="relative">
@@ -88,6 +66,7 @@ function NumberInput({
         type="number"
         value={displayValue}
         onChange={handleChange}
+        onFocus={handleFocus}
         onBlur={handleBlur}
         min={min}
         max={max}
@@ -212,7 +191,7 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="monthlyExpenses"
             value={inputs.monthlyExpenses}
             onChange={(v) => onUpdate('monthlyExpenses', v)}
-            min={500}
+            min={0}
             max={50000}
             step={100}
             prefix="$"
@@ -220,13 +199,13 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
           <Slider
             value={[Math.min(inputs.monthlyExpenses, 15000)]}
             onValueChange={([v]) => onUpdate('monthlyExpenses', v)}
-            min={500}
+            min={0}
             max={15000}
             step={100}
             className="mt-2"
           />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>$500</span><span>$15K</span>
+            <span>$0</span><span>$15K</span>
           </div>
         </FormField>
 

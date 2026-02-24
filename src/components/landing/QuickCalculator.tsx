@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { ArrowRight, Calculator } from 'lucide-react';
 import { calcAdjustedExpenses, calcFireNumber } from '@/lib/calculator/fireFormulas';
 import { formatCurrency } from '@/lib/utils';
+import { useNumberInput } from '@/hooks/useNumberInput';
 
 export function QuickCalculatorCard() {
   const [monthlyExpenses, setMonthlyExpenses] = useState(3500);
   const [dependents, setDependents] = useState(0);
+
+  const expenseInput = useNumberInput(monthlyExpenses, 0, 50000, setMonthlyExpenses);
 
   const adjustedExpenses = calcAdjustedExpenses(monthlyExpenses, dependents);
   const fireNumber = calcFireNumber(adjustedExpenses * 12);
@@ -25,11 +28,13 @@ export function QuickCalculatorCard() {
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-navy-300 font-medium">$</span>
             <input
               type="number"
-              value={monthlyExpenses}
-              onChange={(e) => setMonthlyExpenses(Math.max(500, Number(e.target.value)))}
+              value={expenseInput.displayValue}
+              onChange={expenseInput.handleChange}
+              onFocus={expenseInput.handleFocus}
+              onBlur={expenseInput.handleBlur}
               className="w-full bg-navy-900/50 border border-white/20 rounded-lg pl-8 pr-4 py-3 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-fire-500 focus:border-transparent transition"
               placeholder="3500"
-              min={500}
+              min={0}
               max={50000}
               step={100}
             />
@@ -38,13 +43,13 @@ export function QuickCalculatorCard() {
             type="range"
             value={monthlyExpenses}
             onChange={(e) => setMonthlyExpenses(Number(e.target.value))}
-            min={500}
+            min={0}
             max={15000}
             step={100}
             className="w-full mt-2 accent-fire-500"
           />
           <div className="flex justify-between text-xs text-navy-400 mt-1">
-            <span>$500</span>
+            <span>$0</span>
             <span>$15,000</span>
           </div>
         </div>
