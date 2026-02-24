@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
@@ -51,6 +52,30 @@ function NumberInput({
   prefix?: string;
   suffix?: string;
 }) {
+  const [displayValue, setDisplayValue] = useState(String(value));
+
+  // Sync display when parent value changes (e.g. slider moves)
+  useEffect(() => {
+    setDisplayValue(String(value));
+  }, [value]);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setDisplayValue(e.target.value);
+    const num = Number(e.target.value);
+    if (e.target.value !== '' && !isNaN(num)) {
+      onChange(Math.min(max, Math.max(min, num)));
+    }
+  }
+
+  function handleBlur() {
+    const num = Number(displayValue);
+    const clamped = displayValue === '' || isNaN(num)
+      ? min
+      : Math.min(max, Math.max(min, num));
+    onChange(clamped);
+    setDisplayValue(String(clamped));
+  }
+
   return (
     <div className="relative">
       {prefix && (
@@ -61,8 +86,9 @@ function NumberInput({
       <input
         id={id}
         type="number"
-        value={value}
-        onChange={(e) => onChange(Math.min(max, Math.max(min, Number(e.target.value) || min)))}
+        value={displayValue}
+        onChange={handleChange}
+        onBlur={handleBlur}
         min={min}
         max={max}
         step={step}
