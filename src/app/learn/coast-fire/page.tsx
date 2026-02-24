@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Check, X, Calculator } from 'lucide-react';
 import { articleSchema, faqSchema } from '@/lib/seo/schemas';
+import { MiniFireCalculator } from '@/components/learn/MiniFireCalculator';
 
 export const metadata: Metadata = {
   title: 'Coast FIRE — Save Now, Let Compound Growth Do the Work',
@@ -164,6 +165,8 @@ export default function CoastFirePage() {
               ))}
             </div>
           </section>
+
+          <MiniFireCalculator variant="coast" />
 
           <div className="bg-navy-800 rounded-2xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-3">Calculate Your Coast FIRE Number</h2>

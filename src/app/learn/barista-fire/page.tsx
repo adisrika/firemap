@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Check, X, Calculator } from 'lucide-react';
 import { articleSchema, faqSchema } from '@/lib/seo/schemas';
+import { MiniFireCalculator } from '@/components/learn/MiniFireCalculator';
 
 export const metadata: Metadata = {
   title: 'Barista FIRE — Work Part-Time, Live Fully, Retire On Your Terms',
@@ -150,6 +151,8 @@ export default function BaristaFirePage() {
               ))}
             </div>
           </section>
+
+          <MiniFireCalculator variant="barista" />
 
           <div className="bg-navy-800 rounded-2xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-3">Calculate Your Barista FIRE Number</h2>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useFireCalculator } from '@/hooks/useFireCalculator';
 import { FireCalculatorForm } from './FireCalculatorForm';
 import { FireCalculatorResults } from './FireCalculatorResults';
@@ -13,6 +13,7 @@ import { FireTypeRecommendation } from './charts/FireTypeRecommendation';
 import { Separator } from '@/components/ui/separator';
 import { RotateCcw, Share2, Check } from 'lucide-react';
 import { buildShareUrl } from '@/lib/calculator/urlParams';
+import { trackEvent } from '@/lib/analytics';
 import type { CalculatorInputs } from '@/types/calculator';
 
 export function FireCalculatorShell({
@@ -22,8 +23,26 @@ export function FireCalculatorShell({
 }) {
   const { inputs, results, updateInput, resetInputs } = useFireCalculator(initialInputs);
   const [copied, setCopied] = useState(false);
+  const startedRef = useRef(false);
+  const completedRef = useRef(false);
+
+  useEffect(() => {
+    if (startedRef.current && !completedRef.current) {
+      completedRef.current = true;
+      trackEvent('calculator_completed', { fire_type: results.fireType });
+    }
+  }, [results]);
+
+  function handleUpdate<K extends keyof CalculatorInputs>(key: K, value: CalculatorInputs[K]) {
+    if (!startedRef.current) {
+      startedRef.current = true;
+      trackEvent('calculator_started');
+    }
+    updateInput(key, value);
+  }
 
   function handleShare() {
+    trackEvent('result_shared');
     const url = buildShareUrl(inputs);
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
@@ -63,7 +82,7 @@ export function FireCalculatorShell({
             </button>
           </div>
         </div>
-        <FireCalculatorForm inputs={inputs} onUpdate={updateInput} />
+        <FireCalculatorForm inputs={inputs} onUpdate={handleUpdate} />
       </div>
 
       {/* Banners */}

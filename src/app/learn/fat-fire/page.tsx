@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Check, X, Calculator } from 'lucide-react';
 import { articleSchema, faqSchema } from '@/lib/seo/schemas';
+import { MiniFireCalculator } from '@/components/learn/MiniFireCalculator';
 
 export const metadata: Metadata = {
   title: 'Fat FIRE — Complete Guide to Retiring Abundantly on $100K+/Year',
@@ -177,6 +178,8 @@ export default function FatFirePage() {
               ))}
             </div>
           </section>
+
+          <MiniFireCalculator variant="fat" />
 
           <div className="bg-navy-800 rounded-2xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-3">Calculate Your Fat FIRE Number</h2>

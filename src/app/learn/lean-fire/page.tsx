@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Check, X, Calculator } from 'lucide-react';
 import { articleSchema, faqSchema } from '@/lib/seo/schemas';
+import { MiniFireCalculator } from '@/components/learn/MiniFireCalculator';
 
 export const metadata: Metadata = {
   title: 'Lean FIRE — Complete Guide to Financial Independence on a Lean Budget',
@@ -189,6 +190,8 @@ export default function LeanFirePage() {
               ))}
             </div>
           </section>
+
+          <MiniFireCalculator variant="lean" />
 
           {/* CTA */}
           <div className="bg-navy-800 rounded-2xl p-8 text-white text-center">

@@ -3,7 +3,6 @@ import { HeroSection } from '@/components/landing/HeroSection';
 import { StatsSection } from '@/components/landing/StatsSection';
 import { FireTypesOverview } from '@/components/landing/FireTypesOverview';
 import { HowItWorksSection } from '@/components/landing/HowItWorksSection';
-import { QuickCalculator } from '@/components/landing/QuickCalculator';
 
 export const metadata: Metadata = {
   title: 'FIREmap — Free FIRE Calculator & Your Roadmap to Financial Independence',
@@ -20,7 +19,6 @@ export default function HomePage() {
       <StatsSection />
       <FireTypesOverview />
       <HowItWorksSection />
-      <QuickCalculator />
     </>
   );
 }

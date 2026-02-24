@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Calculator } from 'lucide-react';
 import { articleSchema, faqSchema } from '@/lib/seo/schemas';
+import { MiniFireCalculator } from '@/components/learn/MiniFireCalculator';
 
 export const metadata: Metadata = {
   title: 'The 4% Rule — The Foundation of FIRE Retirement Planning',
@@ -215,6 +216,8 @@ export default function FourPercentRulePage() {
               ))}
             </div>
           </section>
+
+          <MiniFireCalculator variant="fourpercent" />
 
           <div className="bg-navy-800 rounded-2xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-3">See the 4% Rule Applied to Your Situation</h2>

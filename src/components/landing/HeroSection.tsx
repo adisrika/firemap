@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight, TrendingUp, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { QuickCalculatorCard } from './QuickCalculator';
 
 export function HeroSection() {
   return (
@@ -40,7 +43,7 @@ export function HeroSection() {
                   size="lg"
                   className="gradient-fire text-white border-0 hover:opacity-90 shadow-xl shadow-orange-500/30 text-base px-8 group"
                 >
-                  Calculate My FIRE Number
+                  Get Full Projection
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -70,47 +73,9 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right: hero card */}
+          {/* Right: interactive calculator */}
           <div className="hidden lg:block">
-            <div className="glass rounded-2xl p-6 border-white/10">
-              <div className="text-center mb-4">
-                <p className="text-navy-300 text-sm mb-1">Your FIRE Number</p>
-                <p className="text-5xl font-black gradient-fire-text">$1,050,000</p>
-                <p className="text-navy-400 text-xs mt-1">based on $3,500/mo expenses</p>
-              </div>
-
-              <div className="space-y-3 mt-6">
-                {[
-                  { label: 'Current Portfolio', value: '$125,000', progress: 12, color: 'bg-fire-500' },
-                  { label: 'Coast FIRE', value: '$420,000', progress: 30, color: 'bg-gold' },
-                  { label: 'FIRE Number', value: '$1,050,000', progress: 100, color: 'bg-ember' },
-                ].map((item) => (
-                  <div key={item.label}>
-                    <div className="flex justify-between text-xs text-navy-300 mb-1">
-                      <span>{item.label}</span>
-                      <span className="text-white font-medium">{item.value}</span>
-                    </div>
-                    <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full ${item.color} rounded-full transition-all duration-1000`}
-                        style={{ width: `${item.progress}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-white/10 grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <p className="text-2xl font-bold text-white">18 yrs</p>
-                  <p className="text-xs text-navy-400">to FIRE at age 48</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-fire-400">Fat FIRE</p>
-                  <p className="text-xs text-navy-400">FIRE type</p>
-                </div>
-              </div>
-            </div>
+            <QuickCalculatorCard />
           </div>
         </div>
       </div>
