@@ -30,8 +30,8 @@ export function useNumberInput(
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setDisplayValue(e.target.value);
     const num = Number(e.target.value);
-    if (e.target.value !== '' && !isNaN(num)) {
-      onChange(Math.min(max, Math.max(min, num)));
+    if (e.target.value !== '' && !isNaN(num) && num >= min && num <= max) {
+      onChange(num);
     }
   }
 

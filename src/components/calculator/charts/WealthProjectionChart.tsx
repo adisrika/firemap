@@ -12,11 +12,12 @@ import {
   ReferenceLine,
 } from 'recharts';
 import { formatCurrency } from '@/lib/utils';
-import type { ProjectionPoint } from '@/types/calculator';
+import { buildProjectionData } from '@/lib/calculator/fireFormulas';
+import type { CalculatorInputs, CalculatorResults } from '@/types/calculator';
 
 interface WealthProjectionChartProps {
-  data: ProjectionPoint[];
-  fireAge: number | null;
+  results: CalculatorResults;
+  inputs: CalculatorInputs;
 }
 
 function CustomTooltip({ active, payload, label }: {
@@ -39,25 +40,47 @@ function CustomTooltip({ active, payload, label }: {
   );
 }
 
-export function WealthProjectionChart({ data, fireAge }: WealthProjectionChartProps) {
-  const chartData = data.map((d) => ({
-    age: d.age,
-    'Your Portfolio': d.portfolioValue,
-    'FIRE Number': d.fireNumber,
+export function WealthProjectionChart({ results, inputs }: WealthProjectionChartProps) {
+  const { currentSavings, returnRate, currentAge, retirementAge, inflationRate } = inputs;
+  const { currentMonthlySavings, fireNumber, projectionData, targetFireAge } = results;
+
+  const optimistic = buildProjectionData(
+    currentSavings, currentMonthlySavings, returnRate + 2,
+    currentAge, retirementAge, fireNumber, inflationRate
+  );
+  const pessimistic = buildProjectionData(
+    currentSavings, currentMonthlySavings, Math.max(1, returnRate - 2),
+    currentAge, retirementAge, fireNumber, inflationRate
+  );
+
+  const chartData = projectionData.map((b, i) => ({
+    age: b.age,
+    'Base Case': b.portfolioValue,
+    'Optimistic (+2%)': optimistic[i]?.portfolioValue ?? b.portfolioValue,
+    'Pessimistic (-2%)': pessimistic[i]?.portfolioValue ?? b.portfolioValue,
+    'FIRE Number': b.fireNumber,
   }));
 
   return (
     <div>
-      <h3 className="text-lg font-bold text-navy-800 mb-4">Portfolio vs. FIRE Number</h3>
+      <h3 className="text-lg font-bold text-navy-800 mb-4">Portfolio Projection</h3>
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
           <defs>
+            <linearGradient id="optimisticGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
+              <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+            </linearGradient>
             <linearGradient id="portfolioGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#f97316" stopOpacity={0.3} />
+              <stop offset="5%" stopColor="#f97316" stopOpacity={0.35} />
               <stop offset="95%" stopColor="#f97316" stopOpacity={0} />
             </linearGradient>
+            <linearGradient id="pessimisticGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#ef4444" stopOpacity={0.15} />
+              <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+            </linearGradient>
             <linearGradient id="fireGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2} />
+              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15} />
               <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
             </linearGradient>
           </defs>
@@ -76,25 +99,41 @@ export function WealthProjectionChart({ data, fireAge }: WealthProjectionChartPr
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend
-            wrapperStyle={{ paddingTop: '16px', fontSize: '13px' }}
+            wrapperStyle={{ paddingTop: '16px', fontSize: '12px' }}
             iconType="circle"
             iconSize={8}
           />
-          {fireAge && (
+          {targetFireAge && (
             <ReferenceLine
-              x={fireAge}
+              x={targetFireAge}
               stroke="#ef4444"
               strokeDasharray="5 5"
               strokeWidth={2}
-              label={{ value: `FIRE @ ${fireAge}`, position: 'top', fill: '#ef4444', fontSize: 11 }}
+              label={{ value: `FIRE @ ${targetFireAge}`, position: 'top', fill: '#ef4444', fontSize: 11 }}
             />
           )}
           <Area
             type="monotone"
-            dataKey="Your Portfolio"
+            dataKey="Pessimistic (-2%)"
+            stroke="#ef4444"
+            strokeWidth={1.5}
+            fill="url(#pessimisticGrad)"
+            strokeDasharray="4 2"
+          />
+          <Area
+            type="monotone"
+            dataKey="Base Case"
             stroke="#f97316"
             strokeWidth={2.5}
             fill="url(#portfolioGrad)"
+          />
+          <Area
+            type="monotone"
+            dataKey="Optimistic (+2%)"
+            stroke="#10b981"
+            strokeWidth={1.5}
+            fill="url(#optimisticGrad)"
+            strokeDasharray="4 2"
           />
           <Area
             type="monotone"

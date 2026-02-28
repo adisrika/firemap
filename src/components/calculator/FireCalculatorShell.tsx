@@ -7,6 +7,7 @@ import { FireCalculatorResults } from './FireCalculatorResults';
 import { AgeMessageBanner } from './AgeMessageBanner';
 import { DependentsWarning } from './DependentsWarning';
 import { WealthProjectionChart } from './charts/WealthProjectionChart';
+import { SpendingScenarioComparison } from './SpendingScenarioComparison';
 import { SavingsBreakdownChart } from './charts/SavingsBreakdownChart';
 import { MilestoneTimeline } from './charts/MilestoneTimeline';
 import { FireTypeRecommendation } from './charts/FireTypeRecommendation';
@@ -108,6 +109,11 @@ export function FireCalculatorShell({
         />
       </div>
 
+      <div>
+        <h2 className="text-xl font-bold text-navy-800 mb-4">Spending Scenarios</h2>
+        <SpendingScenarioComparison results={results} inputs={inputs} />
+      </div>
+
       <Separator />
 
       {/* Charts */}
@@ -115,10 +121,7 @@ export function FireCalculatorShell({
         <h2 className="text-xl font-bold text-navy-800 mb-6">Visualizations</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-            <WealthProjectionChart
-              data={results.projectionData}
-              fireAge={results.targetFireAge}
-            />
+            <WealthProjectionChart results={results} inputs={inputs} />
           </div>
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
             <SavingsBreakdownChart

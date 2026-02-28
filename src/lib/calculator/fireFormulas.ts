@@ -114,6 +114,22 @@ export function getAgeMessage(
   return "A targeted approach with increased savings rate and possibly higher return strategies can make this goal reachable. Consider consulting a financial advisor.";
 }
 
+/** Find how many years until portfolio reaches the FIRE number */
+export function calcYearsToFireNumber(
+  currentSavings: number,
+  monthlySavings: number,
+  returnRate: number,
+  inflationRate: number,
+  fireNumber: number
+): number | null {
+  for (let y = 1; y <= 50; y++) {
+    const pv = calcPortfolioFV(currentSavings, monthlySavings, returnRate, y * 12);
+    const fn = calcInflationAdjustedFireNumber(fireNumber, inflationRate, y);
+    if (pv >= fn) return y;
+  }
+  return null;
+}
+
 /** Build year-by-year projection data */
 export function buildProjectionData(
   currentSavings: number,
