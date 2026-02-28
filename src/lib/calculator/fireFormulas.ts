@@ -13,9 +13,9 @@ export function calcAdjustedExpenses(
   return monthlyExpenses * (1 + dependents * 0.2);
 }
 
-/** FIRE Number = Annual expenses / 0.04 (25x rule) */
-export function calcFireNumber(annualExpenses: number): number {
-  return annualExpenses / 0.04;
+/** FIRE Number = Annual expenses / withdrawalRate (default 4% = 25x rule) */
+export function calcFireNumber(annualExpenses: number, withdrawalRate = 4): number {
+  return annualExpenses / (withdrawalRate / 100);
 }
 
 /** Inflation-adjusted FIRE Number */
@@ -162,6 +162,7 @@ export function calculateFire(inputs: CalculatorInputs): CalculatorResults {
     dependents,
     returnRate,
     inflationRate,
+    withdrawalRate,
   } = inputs;
 
   const yearsToTarget = retirementAge - currentAge;
@@ -171,7 +172,7 @@ export function calculateFire(inputs: CalculatorInputs): CalculatorResults {
   const adjustedAnnualExpenses = adjustedMonthlyExpenses * 12;
 
   // FIRE numbers
-  const fireNumber = calcFireNumber(adjustedAnnualExpenses);
+  const fireNumber = calcFireNumber(adjustedAnnualExpenses, withdrawalRate);
   const inflationAdjustedFireNumber = calcInflationAdjustedFireNumber(
     fireNumber,
     inflationRate,

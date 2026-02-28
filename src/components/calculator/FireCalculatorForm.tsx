@@ -277,6 +277,30 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             <span>0%</span><span>10%</span>
           </div>
         </FormField>
+
+        {/* Withdrawal Rate (SWR) */}
+        <FormField label="Safe Withdrawal Rate (SWR)" id="withdrawalRate" hint="4% is the classic rule; use 3–3.5% for longer retirements">
+          <NumberInput
+            id="withdrawalRate"
+            value={inputs.withdrawalRate}
+            onChange={(v) => onUpdate('withdrawalRate', v)}
+            min={2}
+            max={6}
+            step={0.1}
+            suffix="%"
+          />
+          <Slider
+            value={[inputs.withdrawalRate]}
+            onValueChange={([v]) => onUpdate('withdrawalRate', v)}
+            min={2}
+            max={6}
+            step={0.1}
+            className="mt-2"
+          />
+          <div className="flex justify-between text-xs text-gray-400">
+            <span>2% (conservative)</span><span>6% (aggressive)</span>
+          </div>
+        </FormField>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ const defaultInputs: CalculatorInputs = {
   dependents: 0,
   returnRate: 7,
   inflationRate: 3,
+  withdrawalRate: 4,
 };
 
 export function useFireCalculator(initialInputs?: Partial<CalculatorInputs>) {

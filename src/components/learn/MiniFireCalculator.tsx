@@ -141,7 +141,7 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Retirement Age
+                Target FIRE Age
               </label>
               <input
                 type="number"
@@ -171,7 +171,7 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
         )}
         {variant === 'coast' && (
           <p className="text-xs text-gray-400 mt-1">
-            Save this by age {currentAge} — let compound growth handle the rest
+            Reach this now — let compound growth carry you to FIRE at {retirementAge}
           </p>
         )}
       </div>

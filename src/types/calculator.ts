@@ -7,6 +7,7 @@ export interface CalculatorInputs {
   dependents: number;
   returnRate: number;
   inflationRate: number;
+  withdrawalRate: number;
 }
 
 export interface ProjectionPoint {

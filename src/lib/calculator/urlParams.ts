@@ -45,6 +45,9 @@ export function parseCalculatorParams(
   const ir = getNum(searchParams, 'ir');
   if (ir !== undefined) result.inflationRate = clamp(ir, 0, 15);
 
+  const wr = getNum(searchParams, 'wr');
+  if (wr !== undefined) result.withdrawalRate = clamp(wr, 2, 6);
+
   return result;
 }
 
@@ -58,6 +61,7 @@ export function buildShareUrl(inputs: CalculatorInputs): string {
     dep: String(inputs.dependents),
     rr: String(inputs.returnRate),
     ir: String(inputs.inflationRate),
+    wr: String(inputs.withdrawalRate),
   });
   return `${window.location.origin}/calculator?${params.toString()}`;
 }
