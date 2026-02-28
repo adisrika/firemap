@@ -9,44 +9,37 @@ function getNum(params: SearchParams, key: string): number | undefined {
   return isNaN(val) ? undefined : val;
 }
 
-function clamp(val: number, min: number, max: number): number {
-  return Math.min(Math.max(val, min), max);
-}
-
 export function parseCalculatorParams(
   searchParams: SearchParams
 ): Partial<CalculatorInputs> {
   const result: Partial<CalculatorInputs> = {};
 
   const age = getNum(searchParams, 'age');
-  if (age !== undefined) result.currentAge = clamp(Math.round(age), 18, 70);
+  if (age !== undefined) result.currentAge = Math.round(age);
 
   const ret = getNum(searchParams, 'ret');
-  if (ret !== undefined) {
-    const minRet = result.currentAge !== undefined ? result.currentAge + 1 : 19;
-    result.retirementAge = clamp(Math.round(ret), minRet, 80);
-  }
+  if (ret !== undefined) result.retirementAge = Math.round(ret);
 
   const inc = getNum(searchParams, 'inc');
-  if (inc !== undefined) result.annualIncome = clamp(inc, 1_000, 10_000_000);
+  if (inc !== undefined) result.annualIncome = inc;
 
   const sav = getNum(searchParams, 'sav');
-  if (sav !== undefined) result.currentSavings = clamp(sav, 0, 100_000_000);
+  if (sav !== undefined) result.currentSavings = sav;
 
   const exp = getNum(searchParams, 'exp');
-  if (exp !== undefined) result.monthlyExpenses = clamp(exp, 500, 50_000);
+  if (exp !== undefined) result.monthlyExpenses = exp;
 
   const dep = getNum(searchParams, 'dep');
-  if (dep !== undefined) result.dependents = clamp(Math.round(dep), 0, 6);
+  if (dep !== undefined) result.dependents = Math.min(6, Math.max(0, Math.round(dep)));
 
   const rr = getNum(searchParams, 'rr');
-  if (rr !== undefined) result.returnRate = clamp(rr, 1, 20);
+  if (rr !== undefined) result.returnRate = rr;
 
   const ir = getNum(searchParams, 'ir');
-  if (ir !== undefined) result.inflationRate = clamp(ir, 0, 15);
+  if (ir !== undefined) result.inflationRate = ir;
 
   const wr = getNum(searchParams, 'wr');
-  if (wr !== undefined) result.withdrawalRate = clamp(wr, 2, 6);
+  if (wr !== undefined) result.withdrawalRate = wr;
 
   return result;
 }
