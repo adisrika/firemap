@@ -11,7 +11,7 @@ export function QuickCalculatorCard() {
   const [monthlyExpenses, setMonthlyExpenses] = useState(3500);
   const [dependents, setDependents] = useState(0);
 
-  const expenseInput = useNumberInput(monthlyExpenses, 0, 50000, setMonthlyExpenses);
+  const expenseInput = useNumberInput(monthlyExpenses, setMonthlyExpenses);
 
   const adjustedExpenses = calcAdjustedExpenses(monthlyExpenses, dependents);
   const fireNumber = calcFireNumber(adjustedExpenses * 12);
@@ -34,8 +34,6 @@ export function QuickCalculatorCard() {
               onBlur={expenseInput.handleBlur}
               className="w-full bg-navy-900/50 border border-white/20 rounded-lg pl-8 pr-4 py-3 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-fire-500 focus:border-transparent transition"
               placeholder="3500"
-              min={0}
-              max={50000}
               step={100}
             />
           </div>

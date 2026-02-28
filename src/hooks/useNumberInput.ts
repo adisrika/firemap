@@ -4,13 +4,11 @@ import { useState, useEffect, useRef } from 'react';
 
 /**
  * Shared hook for number inputs across all calculators.
- * Allows free typing without snapping, syncs from parent (e.g. slider),
- * and clamps to min/max only on blur.
+ * Allows free typing without snapping or clamping.
+ * On blur, reverts to last valid value if input is empty or NaN.
  */
 export function useNumberInput(
   value: number,
-  min: number,
-  max: number,
   onChange: (v: number) => void
 ) {
   const [displayValue, setDisplayValue] = useState(String(value));
@@ -30,7 +28,7 @@ export function useNumberInput(
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setDisplayValue(e.target.value);
     const num = Number(e.target.value);
-    if (e.target.value !== '' && !isNaN(num) && num >= min && num <= max) {
+    if (e.target.value !== '' && !isNaN(num)) {
       onChange(num);
     }
   }
@@ -38,10 +36,13 @@ export function useNumberInput(
   function handleBlur() {
     isFocused.current = false;
     const num = Number(displayValue);
-    const clamped =
-      displayValue === '' || isNaN(num) ? min : Math.min(max, Math.max(min, num));
-    onChange(clamped);
-    setDisplayValue(String(clamped));
+    if (displayValue === '' || isNaN(num)) {
+      // Revert display to last valid value; don't call onChange
+      setDisplayValue(String(value));
+    } else {
+      onChange(num);
+      setDisplayValue(String(num));
+    }
   }
 
   return { displayValue, handleFocus, handleChange, handleBlur };

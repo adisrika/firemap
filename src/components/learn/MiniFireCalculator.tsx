@@ -19,10 +19,10 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
   const [currentAge, setCurrentAge] = useState(30);
   const [retirementAge, setRetirementAge] = useState(65);
 
-  const expenseInput = useNumberInput(monthlyExpenses, 0, 50000, setMonthlyExpenses);
-  const partTimeInput = useNumberInput(partTimeIncome, 0, 10000, setPartTimeIncome);
-  const currentAgeInput = useNumberInput(currentAge, 18, 79, (v) => setCurrentAge(Math.min(v, retirementAge - 1)));
-  const retirementAgeInput = useNumberInput(retirementAge, 19, 80, (v) => setRetirementAge(Math.max(v, currentAge + 1)));
+  const expenseInput = useNumberInput(monthlyExpenses, setMonthlyExpenses);
+  const partTimeInput = useNumberInput(partTimeIncome, setPartTimeIncome);
+  const currentAgeInput = useNumberInput(currentAge, setCurrentAge);
+  const retirementAgeInput = useNumberInput(retirementAge, setRetirementAge);
 
   const annualExpenses = monthlyExpenses * 12;
   const annualPartTime = partTimeIncome * 12;
@@ -73,8 +73,6 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
               onFocus={expenseInput.handleFocus}
               onBlur={expenseInput.handleBlur}
               className={inputClass}
-              min={0}
-              max={50000}
               step={100}
             />
           </div>
@@ -104,8 +102,6 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
                 onFocus={partTimeInput.handleFocus}
                 onBlur={partTimeInput.handleBlur}
                 className={inputClass}
-                min={0}
-                max={10000}
                 step={100}
               />
             </div>
@@ -135,8 +131,6 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
                 onFocus={currentAgeInput.handleFocus}
                 onBlur={currentAgeInput.handleBlur}
                 className={ageInputClass}
-                min={18}
-                max={79}
               />
             </div>
             <div>
@@ -150,8 +144,6 @@ export function MiniFireCalculator({ variant }: MiniFireCalculatorProps) {
                 onFocus={retirementAgeInput.handleFocus}
                 onBlur={retirementAgeInput.handleBlur}
                 className={ageInputClass}
-                min={19}
-                max={80}
               />
             </div>
           </>

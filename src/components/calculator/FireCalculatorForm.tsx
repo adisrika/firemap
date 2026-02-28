@@ -37,8 +37,6 @@ function NumberInput({
   id,
   value,
   onChange,
-  min,
-  max,
   step = 1,
   prefix,
   suffix,
@@ -46,13 +44,11 @@ function NumberInput({
   id: string;
   value: number;
   onChange: (v: number) => void;
-  min: number;
-  max: number;
   step?: number;
   prefix?: string;
   suffix?: string;
 }) {
-  const { displayValue, handleFocus, handleChange, handleBlur } = useNumberInput(value, min, max, onChange);
+  const { displayValue, handleFocus, handleChange, handleBlur } = useNumberInput(value, onChange);
 
   return (
     <div className="relative">
@@ -68,8 +64,6 @@ function NumberInput({
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        min={min}
-        max={max}
         step={step}
         className={cn(
           'w-full h-10 rounded-lg border border-input bg-background text-sm ring-offset-background transition',
@@ -97,20 +91,18 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="currentAge"
             value={inputs.currentAge}
             onChange={(v) => onUpdate('currentAge', v)}
-            min={18}
-            max={70}
             suffix="yrs"
           />
           <Slider
-            value={[inputs.currentAge]}
+            value={[Math.min(inputs.currentAge, 80)]}
             onValueChange={([v]) => onUpdate('currentAge', v)}
             min={18}
-            max={70}
+            max={80}
             step={1}
             className="mt-2"
           />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>18</span><span>70</span>
+            <span>18</span><span>80</span>
           </div>
         </FormField>
 
@@ -119,21 +111,19 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
           <NumberInput
             id="retirementAge"
             value={inputs.retirementAge}
-            onChange={(v) => onUpdate('retirementAge', Math.max(inputs.currentAge + 1, v))}
-            min={inputs.currentAge + 1}
-            max={80}
+            onChange={(v) => onUpdate('retirementAge', v)}
             suffix="yrs"
           />
           <Slider
-            value={[inputs.retirementAge]}
-            onValueChange={([v]) => onUpdate('retirementAge', Math.max(inputs.currentAge + 1, v))}
+            value={[Math.min(Math.max(inputs.retirementAge, inputs.currentAge + 1), 90)]}
+            onValueChange={([v]) => onUpdate('retirementAge', v)}
             min={inputs.currentAge + 1}
-            max={80}
+            max={90}
             step={1}
             className="mt-2"
           />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>{inputs.currentAge + 1}</span><span>80</span>
+            <span>{inputs.currentAge + 1}</span><span>90</span>
           </div>
         </FormField>
 
@@ -143,21 +133,19 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="annualIncome"
             value={inputs.annualIncome}
             onChange={(v) => onUpdate('annualIncome', v)}
-            min={1000}
-            max={10000000}
             step={1000}
             prefix="$"
           />
           <Slider
             value={[Math.min(inputs.annualIncome, 300000)]}
             onValueChange={([v]) => onUpdate('annualIncome', v)}
-            min={20000}
+            min={0}
             max={300000}
             step={1000}
             className="mt-2"
           />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>$20K</span><span>$300K+</span>
+            <span>$0</span><span>$300K+</span>
           </div>
         </FormField>
 
@@ -167,8 +155,6 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="currentSavings"
             value={inputs.currentSavings}
             onChange={(v) => onUpdate('currentSavings', v)}
-            min={0}
-            max={100000000}
             step={1000}
             prefix="$"
           />
@@ -191,8 +177,6 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="monthlyExpenses"
             value={inputs.monthlyExpenses}
             onChange={(v) => onUpdate('monthlyExpenses', v)}
-            min={0}
-            max={50000}
             step={100}
             prefix="$"
           />
@@ -205,7 +189,7 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             className="mt-2"
           />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>$0</span><span>$15K</span>
+            <span>$0</span><span>$15K+</span>
           </div>
         </FormField>
 
@@ -236,13 +220,11 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="returnRate"
             value={inputs.returnRate}
             onChange={(v) => onUpdate('returnRate', v)}
-            min={1}
-            max={20}
             step={0.5}
             suffix="%"
           />
           <Slider
-            value={[inputs.returnRate]}
+            value={[Math.min(inputs.returnRate, 15)]}
             onValueChange={([v]) => onUpdate('returnRate', v)}
             min={1}
             max={15}
@@ -260,13 +242,11 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="inflationRate"
             value={inputs.inflationRate}
             onChange={(v) => onUpdate('inflationRate', v)}
-            min={0}
-            max={15}
             step={0.25}
             suffix="%"
           />
           <Slider
-            value={[inputs.inflationRate]}
+            value={[Math.min(inputs.inflationRate, 10)]}
             onValueChange={([v]) => onUpdate('inflationRate', v)}
             min={0}
             max={10}
@@ -284,21 +264,19 @@ export function FireCalculatorForm({ inputs, onUpdate }: FireCalculatorFormProps
             id="withdrawalRate"
             value={inputs.withdrawalRate}
             onChange={(v) => onUpdate('withdrawalRate', v)}
-            min={2}
-            max={6}
             step={0.1}
             suffix="%"
           />
           <Slider
-            value={[inputs.withdrawalRate]}
+            value={[Math.min(Math.max(inputs.withdrawalRate, 2), 10)]}
             onValueChange={([v]) => onUpdate('withdrawalRate', v)}
             min={2}
-            max={6}
+            max={10}
             step={0.1}
             className="mt-2"
           />
           <div className="flex justify-between text-xs text-gray-400">
-            <span>2% (conservative)</span><span>6% (aggressive)</span>
+            <span>2% (conservative)</span><span>10% (aggressive)</span>
           </div>
         </FormField>
       </div>
